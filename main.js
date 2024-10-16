@@ -7,6 +7,18 @@ document.addEventListener('DOMContentLoaded', function() {
         inventory.forEach(item => {
             const itemDiv = document.createElement('div');
             itemDiv.textContent = `${item.name} - 賞味期限: ${item.expiryDate}`;
+            const addButton = document.createElement('button');
+            const subtractButton = document.createElement('button');
+            addButton.textContent = '+';
+            subtractButton.textContent = '-';
+            addButton.addEventListener('click', ()=>{
+                console.log("add");
+            });
+            subtractButton.addEventListener('click', ()=>{
+                console.log("subtract");
+            });
+            itemDiv.appendChild(addButton);
+            itemDiv.appendChild(subtractButton);
             inventoryDiv.appendChild(itemDiv);
         });
     }
