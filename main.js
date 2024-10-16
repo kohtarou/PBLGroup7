@@ -27,9 +27,3 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初期表示
     displayInventory();
 });
-
-/*
-入力、削除機能
-
-
-*/
