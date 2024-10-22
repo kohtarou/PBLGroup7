@@ -9,10 +9,20 @@
 <body>
     <h1>食品ロス削減アプリ</h1>
     <div id="inventory">
-        <!-- 商品リストがここに表示されます -->
+        <h2>在庫</h2>
+        <ul id="itemList"></ul>
+        <button id="showFormButton">アイテム追加</button>
+        <form id="addItemForm" style="display: none;">
+            <input type="text" id="itemName" placeholder="商品名" required>
+            <input type="number" id="itemQuantity" placeholder="数量" required>
+            <input type="date" id="expiryDate" required>
+            <button type="submit">商品追加</button>
+        </form>
     </div>
-    <button id="addItemButton">アイテム追加</button>
-
+    <div id="shoppingList">
+        <h2>買い物リスト</h2>
+        <ul id="shoppingListUl"></ul>
+    </div>
     <script src="main.js"></script>
 </body>
 </html>

@@ -1,37 +1,60 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const showFormButton = document.getElementById('showFormButton');
+    const addItemForm = document.getElementById('addItemForm');
+
+    showFormButton.addEventListener('click', function() {
+        addItemForm.style.display = 'block';
+        showFormButton.style.display = 'none';
+    });
+
     const inventory = [];
-    
+    const shoppingList = [];
+
     function displayInventory() {
-        const inventoryDiv = document.getElementById('inventory');
-        inventoryDiv.innerHTML = '';
+        const itemList = document.getElementById('itemList');
+        itemList.innerHTML = '';
         inventory.forEach(item => {
-            const itemDiv = document.createElement('div');
-            itemDiv.textContent = `${item.name} - 賞味期限: ${item.expiryDate}`;
-            ['+', '-'].forEach((text, i) => {
-                const button = document.createElement('button');
-                button.textContent = text;
-                button.addEventListener('click', () => {
-                    console.log(i % 2 === 0 ? 'add' : 'subtract');
-                });
-                itemDiv.appendChild(button);
-            });
-            inventoryDiv.appendChild(itemDiv);
+            const itemLi = document.createElement('li');
+            itemLi.textContent = `${item.name} - 数量: ${item.quantity} - 賞味期限: ${item.expiryDate}`;
+            itemList.appendChild(itemLi);
         });
     }
 
-    function addItem(name, expiryDate) {
-        inventory.push({ name, expiryDate });
+    function displayShoppingList() {
+        const shoppingListUl = document.getElementById('shoppingListUl');
+        shoppingListUl.innerHTML = '';
+        shoppingList.forEach(item => {
+            const shoppingListLi = document.createElement('li');
+            shoppingListLi.textContent = `${item.name} - 数量: ${item.quantity}`;
+            shoppingListUl.appendChild(shoppingListLi);
+        });
+    }
+
+    function addItem(name, quantity, expiryDate) {
+        inventory.push({ name, quantity, expiryDate });
         displayInventory();
     }
 
-    document.getElementById('addItemButton').addEventListener('click', function() {
-        const name = prompt('商品名を入力してください:');
-        const expiryDate = prompt('賞味期限を入力してください (YYYY-MM-DD):');
-        if (name && expiryDate) {
-            addItem(name, expiryDate);
+    function addShoppingItem(name, quantity) {
+        shoppingList.push({ name, quantity });
+        displayShoppingList();
+    }
+
+    addItemForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const name = document.getElementById('itemName').value;
+        const quantity = document.getElementById('itemQuantity').value;
+        const expiryDate = document.getElementById('expiryDate').value;
+        if (name && quantity && expiryDate) {
+            addItem(name, quantity, expiryDate);
+            addShoppingItem(name, quantity); // 買い物リストにも追加
+            addItemForm.reset();
+            addItemForm.style.display = 'none';
+            showFormButton.style.display = 'block';
         }
     });
 
     // 初期表示
     displayInventory();
+    displayShoppingList();
 });
