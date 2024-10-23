@@ -22,9 +22,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function displayAllInventory() {
+        const itemList = document.getElementById('itemList');
+        itemList.innerHTML = '';
+        Object.keys(categories).forEach(category => {
+            categories[category].forEach(item => {
+                const itemLi = document.createElement('li');
+                itemLi.textContent = `${item.name} - 数量: ${item.quantity} - 賞味期限: ${item.expiryDate}`;
+                itemList.appendChild(itemLi);
+            });
+        });
+    }
+
     function displayCategories() {
         const categoryList = document.getElementById('categoryList');
         categoryList.innerHTML = '';
+
+        // すべて表示ボタンを追加
+        const allCategoriesLi = document.createElement('li');
+        const allCategoriesButton = document.createElement('button');
+        allCategoriesButton.textContent = 'すべて表示';
+        allCategoriesButton.className = 'category-button';
+        allCategoriesButton.addEventListener('click', displayAllInventory);
+        allCategoriesLi.appendChild(allCategoriesButton);
+        categoryList.appendChild(allCategoriesLi);
+
         Object.keys(categories).forEach(category => {
             const categoryLi = document.createElement('li');
             const categoryButton = document.createElement('button');
