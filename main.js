@@ -8,36 +8,42 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     const inventory = [];
-    const shoppingList = [];
+    const categories = {};
 
-    function displayInventory() {
+    function displayInventory(category) {
         const itemList = document.getElementById('itemList');
         itemList.innerHTML = '';
-        inventory.forEach(item => {
-            const itemLi = document.createElement('li');
-            itemLi.textContent = `${item.name} - 数量: ${item.quantity} - 賞味期限: ${item.expiryDate}`;
-            itemList.appendChild(itemLi);
+        if (categories[category]) {
+            categories[category].forEach(item => {
+                const itemLi = document.createElement('li');
+                itemLi.textContent = `${item.name} - 数量: ${item.quantity} - 賞味期限: ${item.expiryDate}`;
+                itemList.appendChild(itemLi);
+            });
+        }
+    }
+
+    function displayCategories() {
+        const categoryList = document.getElementById('categoryList');
+        categoryList.innerHTML = '';
+        Object.keys(categories).forEach(category => {
+            const categoryLi = document.createElement('li');
+            const categoryButton = document.createElement('button');
+            categoryButton.textContent = category;
+            categoryButton.addEventListener('click', function() {
+                displayInventory(category);
+            });
+            categoryLi.appendChild(categoryButton);
+            categoryList.appendChild(categoryLi);
         });
     }
 
-    function displayShoppingList() {
-        const shoppingListUl = document.getElementById('shoppingListUl');
-        shoppingListUl.innerHTML = '';
-        shoppingList.forEach(item => {
-            const shoppingListLi = document.createElement('li');
-            shoppingListLi.textContent = `${item.name} - 数量: ${item.quantity}`;
-            shoppingListUl.appendChild(shoppingListLi);
-        });
-    }
-
-    function addItem(name, quantity, expiryDate) {
-        inventory.push({ name, quantity, expiryDate });
-        displayInventory();
-    }
-
-    function addShoppingItem(name, quantity) {
-        shoppingList.push({ name, quantity });
-        displayShoppingList();
+    function addItem(name, quantity, expiryDate, category) {
+        if (!categories[category]) {
+            categories[category] = [];
+        }
+        categories[category].push({ name, quantity, expiryDate });
+        displayInventory(category);
+        displayCategories();
     }
 
     addItemForm.addEventListener('submit', function(event) {
@@ -45,9 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const name = document.getElementById('itemName').value;
         const quantity = document.getElementById('itemQuantity').value;
         const expiryDate = document.getElementById('expiryDate').value;
-        if (name && quantity && expiryDate) {
-            addItem(name, quantity, expiryDate);
-            addShoppingItem(name, quantity); // 買い物リストにも追加
+        const category = document.getElementById('itemCategory').value;
+        if (name && quantity && expiryDate && category) {
+            addItem(name, quantity, expiryDate, category);
             addItemForm.reset();
             addItemForm.style.display = 'none';
             showFormButton.style.display = 'block';
@@ -55,6 +61,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 初期表示
-    displayInventory();
-    displayShoppingList();
+    displayCategories();
 });
