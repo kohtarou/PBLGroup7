@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const categoryLi = document.createElement('li');
             const categoryButton = document.createElement('button');
             categoryButton.textContent = category;
+            categoryButton.className = 'category-button';
             categoryButton.addEventListener('click', function() {
                 displayInventory(category);
             });
