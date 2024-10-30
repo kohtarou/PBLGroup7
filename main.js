@@ -109,12 +109,11 @@ document.addEventListener('DOMContentLoaded', function() {
             //addItemForm.style.display = 'none';
             //showFormButton.style.display = 'block';
         }
-        window.addEventListener("click", (event) => {
-            if (event.target === modal) {
-                addItemForm.reset();
-                modal.style.display = "none";
-            }
-        });
+    });
+
+    addItemForm.addEventListener('cancel', (event) => {
+        addItemForm.reset();
+        modal.style.display = "none";
     });
 
     // 初期表示
