@@ -18,6 +18,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const itemLi = document.createElement('li');
                 itemLi.textContent = `${item.name} - 数量: ${item.quantity} - 賞味期限: ${item.expiryDate}`;
                 itemList.appendChild(itemLi);
+
+                const editButton = document.createElement('button');
+                editButton.textContent="削削";
+                editButton.addEventListener('click',() => {
+                    console.log("削除");
+                });
+                itemLi.appendChild(editButton);
             });
         }
     }
@@ -30,6 +37,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const itemLi = document.createElement('li');
                 itemLi.textContent = `${item.name} - 数量: ${item.quantity} - 賞味期限: ${item.expiryDate}`;
                 itemList.appendChild(itemLi);
+
+                const editButton = document.createElement('button');
+                editButton.textContent="削削";
+                editButton.addEventListener('click',() => {
+                    console.log("削除");
+                });
+                itemLi.appendChild(editButton);
             });
         });
     }
