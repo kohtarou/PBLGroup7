@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const addItemForm = document.getElementById('addItemForm');
 
     showFormButton.addEventListener('click', function() {
-        //addItemForm.style.display = 'block';
-        modal.style.display = "flex";
-        //showFormButton.style.display = 'none';
+        addItemForm.style.display = 'block';
+        showFormButton.style.display = 'none';
     });
 
     const categories = {};
@@ -16,34 +15,64 @@ document.addEventListener('DOMContentLoaded', function() {
         if (categories[category]) {
             categories[category].forEach((item, index) => {
                 const itemLi = document.createElement('li');
-                itemLi.textContent = `${item.name} - 数量: ${item.quantity} - 賞味期限: ${item.expiryDate}`;
-
+                itemLi.className = 'item';
+    
+                const itemName = document.createElement('span');
+                itemName.className = 'item-name';
+                itemName.textContent = item.name;
+    
+                const itemQuantity = document.createElement('span');
+                itemQuantity.className = 'item-quantity';
+                itemQuantity.textContent = `${item.quantity}`;
+    
+                const itemExpiryDate = document.createElement('span');
+                itemExpiryDate.className = 'item-expiry-date';
+                itemExpiryDate.textContent = `${item.expiryDate}`;
+    
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = '削除';
                 deleteButton.addEventListener('click', function() {
                     deleteItem(category, index);
                 });
-
+    
+                itemLi.appendChild(itemName);
+                itemLi.appendChild(itemQuantity);
+                itemLi.appendChild(itemExpiryDate);
                 itemLi.appendChild(deleteButton);
                 itemList.appendChild(itemLi);
             });
         }
     }
-
+    
     function displayAllInventory() {
         const itemList = document.getElementById('itemList');
         itemList.innerHTML = '';
         Object.keys(categories).forEach(category => {
             categories[category].forEach((item, index) => {
                 const itemLi = document.createElement('li');
-                itemLi.textContent = `${item.name} - 数量: ${item.quantity} - 賞味期限: ${item.expiryDate}`;
-
+                itemLi.className = 'item';
+    
+                const itemName = document.createElement('span');
+                itemName.className = 'item-name';
+                itemName.textContent = item.name;
+    
+                const itemQuantity = document.createElement('span');
+                itemQuantity.className = 'item-quantity';
+                itemQuantity.textContent = `${item.quantity}`;
+    
+                const itemExpiryDate = document.createElement('span');
+                itemExpiryDate.className = 'item-expiry-date';
+                itemExpiryDate.textContent = `${item.expiryDate}`;
+    
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = '削除';
                 deleteButton.addEventListener('click', function() {
                     deleteItem(category, index);
                 });
-
+    
+                itemLi.appendChild(itemName);
+                itemLi.appendChild(itemQuantity);
+                itemLi.appendChild(itemExpiryDate);
                 itemLi.appendChild(deleteButton);
                 itemList.appendChild(itemLi);
             });
@@ -105,9 +134,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (name && quantity && expiryDate && category) {
             addItem(name, quantity, expiryDate, category);
             addItemForm.reset();
-            modal.style.display = "none";
-            //addItemForm.style.display = 'none';
-            //showFormButton.style.display = 'block';
+            addItemForm.style.display = 'none';
+            showFormButton.style.display = 'block';
         }
     });
 
