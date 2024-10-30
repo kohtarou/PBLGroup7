@@ -7,16 +7,23 @@ document.addEventListener('DOMContentLoaded', function() {
         showFormButton.style.display = 'none';
     });
 
-    const inventory = [];
     const categories = {};
 
     function displayInventory(category) {
         const itemList = document.getElementById('itemList');
         itemList.innerHTML = '';
         if (categories[category]) {
-            categories[category].forEach(item => {
+            categories[category].forEach((item, index) => {
                 const itemLi = document.createElement('li');
                 itemLi.textContent = `${item.name} - 数量: ${item.quantity} - 賞味期限: ${item.expiryDate}`;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = '削除';
+                deleteButton.addEventListener('click', function() {
+                    deleteItem(category, index);
+                });
+
+                itemLi.appendChild(deleteButton);
                 itemList.appendChild(itemLi);
 
                 const editButton = document.createElement('button');
@@ -33,9 +40,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const itemList = document.getElementById('itemList');
         itemList.innerHTML = '';
         Object.keys(categories).forEach(category => {
-            categories[category].forEach(item => {
+            categories[category].forEach((item, index) => {
                 const itemLi = document.createElement('li');
                 itemLi.textContent = `${item.name} - 数量: ${item.quantity} - 賞味期限: ${item.expiryDate}`;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = '削除';
+                deleteButton.addEventListener('click', function() {
+                    deleteItem(category, index);
+                });
+
+                itemLi.appendChild(deleteButton);
                 itemList.appendChild(itemLi);
 
                 const editButton = document.createElement('button');
@@ -81,6 +96,17 @@ document.addEventListener('DOMContentLoaded', function() {
         categories[category].push({ name, quantity, expiryDate });
         displayInventory(category);
         displayCategories();
+    }
+
+    function deleteItem(category, index) {
+        if (categories[category]) {
+            categories[category].splice(index, 1);
+            if (categories[category].length === 0) {
+                delete categories[category]; // カテゴリーが空になったら削除
+            }
+            displayCategories();
+            displayAllInventory(); // 全てのアイテムを表示
+        }
     }
 
     addItemForm.addEventListener('submit', function(event) {
