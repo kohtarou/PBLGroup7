@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const showFormButton = document.getElementById('showFormButton');
     const addItemForm = document.getElementById('addItemForm');
+    const cancelButton =document.getElementById('cancelButton');
 
     showFormButton.addEventListener('click', function() {
         //addItemForm.style.display = 'block';
@@ -145,7 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    addItemForm.addEventListener('cancel', (event) => {
+    cancelButton.addEventListener('click', function(event) {
+        event.preventDefault();
         addItemForm.reset();
         modal.style.display = "none";
     });
