@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
         //addItemForm.style.display = 'block';
         modal.style.display = "flex";
         //showFormButton.style.display = 'none';
-        addItemForm.style.display = 'block';
-        showFormButton.style.display = 'none';
+        //addItemForm.style.display = 'block';
+        //showFormButton.style.display = 'none';
     });
 
     const categories = {};
@@ -140,8 +140,8 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = "none";
             //addItemForm.style.display = 'none';
             //showFormButton.style.display = 'block';
-            addItemForm.style.display = 'none';
-            showFormButton.style.display = 'block';
+            //addItemForm.style.display = 'none';
+            //showFormButton.style.display = 'block';
         }
     });
 
