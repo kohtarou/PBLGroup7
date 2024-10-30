@@ -3,8 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const addItemForm = document.getElementById('addItemForm');
 
     showFormButton.addEventListener('click', function() {
-        addItemForm.style.display = 'block';
-        showFormButton.style.display = 'none';
+        //addItemForm.style.display = 'block';
+        modal.style.display = "flex";
+        //showFormButton.style.display = 'none';
     });
 
     const categories = {};
@@ -104,8 +105,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (name && quantity && expiryDate && category) {
             addItem(name, quantity, expiryDate, category);
             addItemForm.reset();
-            addItemForm.style.display = 'none';
-            showFormButton.style.display = 'block';
+            modal.style.display = "none";
+            //addItemForm.style.display = 'none';
+            //showFormButton.style.display = 'block';
         }
     });
 
