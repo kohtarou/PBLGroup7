@@ -25,13 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 itemLi.appendChild(deleteButton);
                 itemList.appendChild(itemLi);
-
-                const editButton = document.createElement('button');
-                editButton.textContent="削削";
-                editButton.addEventListener('click',() => {
-                    console.log("削除");
-                });
-                itemLi.appendChild(editButton);
             });
         }
     }
@@ -52,13 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 itemLi.appendChild(deleteButton);
                 itemList.appendChild(itemLi);
-
-                const editButton = document.createElement('button');
-                editButton.textContent="削削";
-                editButton.addEventListener('click',() => {
-                    console.log("削除");
-                });
-                itemLi.appendChild(editButton);
             });
         });
     }
