@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const addItemForm = document.getElementById('addItemForm');
     const cancelButton = document.getElementById('cancelButton');
     const categorySelect = document.getElementById('categorySelect');
+    const modal = document.getElementById('modal'); // modal要素を取得
 
     showFormButton.addEventListener('click', function() {
         modal.style.display = "flex";
@@ -77,21 +78,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayCategories() {
-        const categoryList = document.getElementById('categoryList');
-        categoryList.innerHTML = '';
         categorySelect.innerHTML = '<option value="all">すべて表示</option>';
 
         Object.keys(categories).forEach(category => {
-            const categoryLi = document.createElement('li');
-            const categoryButton = document.createElement('button');
-            categoryButton.textContent = category;
-            categoryButton.className = 'category-button';
-            categoryButton.addEventListener('click', function() {
-                displayInventory(category);
-            });
-            categoryLi.appendChild(categoryButton);
-            categoryList.appendChild(categoryLi);
-
             const categoryOption = document.createElement('option');
             categoryOption.value = category;
             categoryOption.textContent = category;
@@ -115,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 delete categories[category]; // カテゴリーが空になったら削除
             }
             displayCategories();
-            displayAllInventory(); // 全てのアイテムを表示
+            displayInventory('all'); // 全てのアイテムを表示
         }
     }
 
@@ -128,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (name && quantity && expiryDate && category) {
             addItem(name, quantity, expiryDate, category);
             addItemForm.reset();
-            modal.style.display = "none";
+            modal.style.display = "none"; // 追加画面を閉じる
         }
     });
 

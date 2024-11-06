@@ -47,6 +47,13 @@ h1 {
 #categorySelect {
     margin-left: 10px;
     padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    height: 30px;
+    width: 150px;
 }
 
 .item {
@@ -66,7 +73,6 @@ h1 {
     margin-left: 10px;
 }
 
-
 button {
     background-color: #4CAF50;
     color: white;
@@ -84,45 +90,6 @@ button {
 
 button:hover {
     background-color: #45a049;
-}
-
-#categories {
-    width: 80%;
-    max-width: 600px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#categoryList {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-}
-
-#categoryList li {
-    margin-bottom: 10px;
-}
-
-.category-button {
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
-
-.category-button:hover {
-    background-color: #1e88e5;
 }
 
 .modal {
