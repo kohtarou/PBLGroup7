@@ -35,11 +35,17 @@
 - 購入日
 - 商品名
 - 名称  ( 大分類から小分類を記入できるようにする  
-参考 : https://chain-owner.work/name-in-food-label )  
+参考 : https://chain-owner.work/n
+ame-in-food-label )  
 - 賞味期限 or 消費期限
 - 数量
 - 内容量、分量
 - 記入者
+
+
+記入欄は最初から表示させておく(Todoアプリの見本みたいな感じ)
+
+
 
 "名称"によって単位を変える
 
