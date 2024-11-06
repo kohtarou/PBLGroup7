@@ -28,6 +28,26 @@ h1 {
     margin-bottom: 20px;
 }
 
+.inventory-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 2px solid #333;
+    background-color: #f4f4f4;
+}
+
+.header-item {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#categorySelect {
+    margin-left: 10px;
+    padding: 5px;
+}
 
 .item {
     display: flex;

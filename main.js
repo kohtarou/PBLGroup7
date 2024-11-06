@@ -1,14 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     const showFormButton = document.getElementById('showFormButton');
     const addItemForm = document.getElementById('addItemForm');
-    const cancelButton =document.getElementById('cancelButton');
+    const cancelButton = document.getElementById('cancelButton');
+    const categorySelect = document.getElementById('categorySelect');
 
     showFormButton.addEventListener('click', function() {
-        //addItemForm.style.display = 'block';
         modal.style.display = "flex";
-        //showFormButton.style.display = 'none';
-        //addItemForm.style.display = 'block';
-        //showFormButton.style.display = 'none';
     });
 
     const categories = {};
@@ -16,29 +13,60 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayInventory(category) {
         const itemList = document.getElementById('itemList');
         itemList.innerHTML = '';
-        if (categories[category]) {
+        if (category === 'all') {
+            Object.keys(categories).forEach(cat => {
+                categories[cat].forEach((item, index) => {
+                    const itemLi = document.createElement('li');
+                    itemLi.className = 'item';
+
+                    const itemName = document.createElement('span');
+                    itemName.className = 'item-name';
+                    itemName.textContent = item.name;
+
+                    const itemQuantity = document.createElement('span');
+                    itemQuantity.className = 'item-quantity';
+                    itemQuantity.textContent = `${item.quantity}`;
+
+                    const itemExpiryDate = document.createElement('span');
+                    itemExpiryDate.className = 'item-expiry-date';
+                    itemExpiryDate.textContent = `${item.expiryDate}`;
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = '削除';
+                    deleteButton.addEventListener('click', function() {
+                        deleteItem(cat, index);
+                    });
+
+                    itemLi.appendChild(itemName);
+                    itemLi.appendChild(itemQuantity);
+                    itemLi.appendChild(itemExpiryDate);
+                    itemLi.appendChild(deleteButton);
+                    itemList.appendChild(itemLi);
+                });
+            });
+        } else if (categories[category]) {
             categories[category].forEach((item, index) => {
                 const itemLi = document.createElement('li');
                 itemLi.className = 'item';
-    
+
                 const itemName = document.createElement('span');
                 itemName.className = 'item-name';
                 itemName.textContent = item.name;
-    
+
                 const itemQuantity = document.createElement('span');
                 itemQuantity.className = 'item-quantity';
                 itemQuantity.textContent = `${item.quantity}`;
-    
+
                 const itemExpiryDate = document.createElement('span');
                 itemExpiryDate.className = 'item-expiry-date';
                 itemExpiryDate.textContent = `${item.expiryDate}`;
-    
+
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = '削除';
                 deleteButton.addEventListener('click', function() {
                     deleteItem(category, index);
                 });
-    
+
                 itemLi.appendChild(itemName);
                 itemLi.appendChild(itemQuantity);
                 itemLi.appendChild(itemExpiryDate);
@@ -47,54 +75,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
-    
-    function displayAllInventory() {
-        const itemList = document.getElementById('itemList');
-        itemList.innerHTML = '';
-        Object.keys(categories).forEach(category => {
-            categories[category].forEach((item, index) => {
-                const itemLi = document.createElement('li');
-                itemLi.className = 'item';
-    
-                const itemName = document.createElement('span');
-                itemName.className = 'item-name';
-                itemName.textContent = item.name;
-    
-                const itemQuantity = document.createElement('span');
-                itemQuantity.className = 'item-quantity';
-                itemQuantity.textContent = `${item.quantity}`;
-    
-                const itemExpiryDate = document.createElement('span');
-                itemExpiryDate.className = 'item-expiry-date';
-                itemExpiryDate.textContent = `${item.expiryDate}`;
-    
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = '削除';
-                deleteButton.addEventListener('click', function() {
-                    deleteItem(category, index);
-                });
-    
-                itemLi.appendChild(itemName);
-                itemLi.appendChild(itemQuantity);
-                itemLi.appendChild(itemExpiryDate);
-                itemLi.appendChild(deleteButton);
-                itemList.appendChild(itemLi);
-            });
-        });
-    }
 
     function displayCategories() {
         const categoryList = document.getElementById('categoryList');
         categoryList.innerHTML = '';
-
-        // すべて表示ボタンを追加
-        const allCategoriesLi = document.createElement('li');
-        const allCategoriesButton = document.createElement('button');
-        allCategoriesButton.textContent = 'すべて表示';
-        allCategoriesButton.className = 'category-button';
-        allCategoriesButton.addEventListener('click', displayAllInventory);
-        allCategoriesLi.appendChild(allCategoriesButton);
-        categoryList.appendChild(allCategoriesLi);
+        categorySelect.innerHTML = '<option value="all">すべて表示</option>';
 
         Object.keys(categories).forEach(category => {
             const categoryLi = document.createElement('li');
@@ -106,6 +91,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             categoryLi.appendChild(categoryButton);
             categoryList.appendChild(categoryLi);
+
+            const categoryOption = document.createElement('option');
+            categoryOption.value = category;
+            categoryOption.textContent = category;
+            categorySelect.appendChild(categoryOption);
         });
     }
 
@@ -139,10 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
             addItem(name, quantity, expiryDate, category);
             addItemForm.reset();
             modal.style.display = "none";
-            //addItemForm.style.display = 'none';
-            //showFormButton.style.display = 'block';
-            //addItemForm.style.display = 'none';
-            //showFormButton.style.display = 'block';
         }
     });
 
@@ -150,6 +136,11 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         addItemForm.reset();
         modal.style.display = "none";
+    });
+
+    categorySelect.addEventListener('change', function() {
+        const selectedCategory = categorySelect.value;
+        displayInventory(selectedCategory);
     });
 
     // 初期表示
